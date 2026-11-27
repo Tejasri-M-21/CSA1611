@@ -1,0 +1,41 @@
+library(arules)
+
+txt <- c(
+
+"M,O,N,K,E,Y",
+
+"D,O,N,K,E,Y",
+
+"M,A,K,E",
+
+"M,U,C,K,Y",
+
+"C,O,K,I,E"
+
+)
+
+writeLines(txt,"t100.csv")
+
+tr <- read.transactions("t100.csv",
+
+                        format="basket",sep=",")
+
+minsup <- 0.40
+
+ap <- apriori(tr,
+
+              parameter=list(target="frequent itemsets",
+
+                             supp=minsup,
+
+                             minlen=1))
+
+cat("Apriori frequent itemsets:\n")
+
+inspect(ap)
+
+cat("\nNumber of itemsets:",length(ap),"\n")
+
+cat("\nFrequent itemsets can be mined using an FP-tree with\n")
+
+cat("the same minimum support for comparison.\n")
