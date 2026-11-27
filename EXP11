@@ -1,0 +1,31 @@
+library(arules)
+
+library(arulesViz)
+
+transactions <- read.transactions("transactions.csv",
+
+                                   format="basket",
+
+                                   sep=",",
+
+                                   rm.duplicates=TRUE)
+
+ap <- apriori(transactions,
+
+              parameter=list(supp=3/length(transactions),
+
+                             conf=0.50,
+
+                             minlen=2))
+
+fp <- fpgrowth(transactions,
+
+               parameter=list(supp=3/length(transactions)))
+
+cat("Apriori rules:\n")
+
+inspect(ap)
+
+cat("\nFP-Growth itemsets:\n")
+
+inspect(fp)
