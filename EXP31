@@ -1,0 +1,51 @@
+library(arules)
+
+txt <- c(
+
+"SONY,BPL,LG",
+
+"BPL,SAMSUNG",
+
+"BPL,ONIDA",
+
+"SONY,BPL,SAMSUNG",
+
+"SONY,ONIDA",
+
+"BPL,ONIDA",
+
+"SONY,ONIDA",
+
+"SONY,BPL,ONIDA,LG",
+
+"SONY,BPL,ONIDA"
+
+)
+
+writeLines(txt,"t1_t9.csv")
+
+tr <- read.transactions("t1_t9.csv",
+
+                        format="basket",sep=",")
+
+freq <- apriori(tr,
+
+                parameter=list(target="frequent itemsets",
+
+                               supp=3/9))
+
+rules <- apriori(tr,
+
+                 parameter=list(supp=3/9,
+
+                                conf=0.60,
+
+                                minlen=2))
+
+cat("Frequent itemsets:\n")
+
+inspect(freq)
+
+cat("\nStrong association rules:\n")
+
+inspect(rules)
