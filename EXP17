@@ -1,0 +1,39 @@
+library(rpart)
+
+data(iris)
+
+set.seed(10)
+
+id <- sample(1:nrow(iris), 0.7*nrow(iris))
+
+train <- iris[id,]
+
+test <- iris[-id,]
+
+tree <- rpart(Species ~ ., data=train, method="class")
+
+pred.tree <- predict(tree, test, type="class")
+
+cm.tree <- table(test$Species, pred.tree)
+
+acc.tree <- sum(diag(cm.tree))/sum(cm.tree)
+
+cat("Decision Tree Accuracy:", acc.tree, "\n")
+
+print(cm.tree)
+
+# Simple rule-based classifier
+
+pred.rule <- ifelse(test$Petal.Length < 2, "setosa",
+
+                    ifelse(test$Petal.Width < 1.8,
+
+                           "versicolor","virginica"))
+
+cm.rule <- table(test$Species, pred.rule)
+
+acc.rule <- sum(diag(cm.rule))/sum(cm.rule)
+
+cat("\nRule Based Accuracy:", acc.rule, "\n")
+
+print(cm.rule)
