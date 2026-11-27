@@ -1,0 +1,33 @@
+ R equivalent of the WEKA experiment
+
+library(rpart)
+
+data(iris)
+
+set.seed(123)
+
+index <- sample(1:nrow(iris), 0.7*nrow(iris))
+
+train <- iris[index,]
+
+test <- iris[-index,]
+
+tree <- rpart(Species ~ ., data=train, method="class")
+
+pred <- predict(tree, test, type="class")
+
+cm <- table(Actual=test$Species, Predicted=pred)
+
+print(tree)
+
+cat("\nConfusion Matrix:\n")
+
+print(cm)
+
+accuracy <- sum(diag(cm))/sum(cm)
+
+cat("\nAccuracy =", accuracy, "\n")
+
+plot(tree)
+
+text(tree, use.n=TRUE)
