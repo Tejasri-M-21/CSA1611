@@ -1,0 +1,51 @@
+library(arules)
+
+txt <- c(
+
+"Bread,Peanuts,Milk,Fruit,Jam",
+
+"Bread,Jam,Soda,Chips,Milk,Fruit",
+
+"Steak,Jam,Soda,Chips,Bread",
+
+"Jam,Soda,Peanuts,Milk,Fruit",
+
+"Jam,Soda,Chips,Milk,Bread",
+
+"Fruit,Soda,Chips,Milk",
+
+"Fruit,Soda,Peanuts,Milk",
+
+"Fruit,Peanuts,Cheese,Yogurt"
+
+)
+
+writeLines(txt,"grocery.csv")
+
+tr <- read.transactions("grocery.csv",
+
+                        format="basket",sep=",")
+
+freq <- apriori(tr,
+
+                parameter=list(target="frequent itemsets",
+
+                               supp=2/8,
+
+                               minlen=1))
+
+rules <- apriori(tr,
+
+                 parameter=list(supp=2/8,
+
+                                conf=0.50,
+
+                                minlen=2))
+
+cat("Frequent itemsets:\n")
+
+inspect(freq)
+
+cat("\nAssociation rules:\n")
+
+inspect(rules)
