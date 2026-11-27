@@ -1,0 +1,31 @@
+library(arules)
+
+items <- list(
+
+ c("Bread","Milk","Jam"),
+
+ c("Bread","Milk"),
+
+ c("Bread","Jam"),
+
+ c("Milk","Jam"),
+
+ c("Bread","Milk","Jam"),
+
+ c("Bread","Milk")
+
+)
+
+tr <- as(items, "transactions")
+
+rules <- apriori(tr,
+
+                 parameter=list(supp=0.3333,
+
+                                conf=0.60,
+
+                                minlen=2))
+
+inspect(rules)
+
+cat("\nRule count:", length(rules), "\n")
