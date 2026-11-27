@@ -1,0 +1,25 @@
+speed <- c(78.3,81.8,82,74.2,83.4,
+
+             84.5,82.9,77.5,80.9,70.6)
+
+q1 <- quantile(speed,0.25)
+
+q3 <- quantile(speed,0.75)
+
+iqr.value <- IQR(speed)
+
+cat("Mean =",mean(speed),"\n")
+
+cat("Standard Deviation =",sd(speed),"\n")
+
+cat("Variance =",var(speed),"\n")
+
+cat("Q1 =",q1,"\n")
+
+cat("Q3 =",q3,"\n")
+
+cat("Interquartile Range =",iqr.value,"\n")
+
+boxplot(speed,main="Car Speed",
+
+        ylab="Speed (kph)",col="lightblue")
