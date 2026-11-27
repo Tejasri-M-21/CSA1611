@@ -1,0 +1,27 @@
+age.lower <- c(1,5,15,20,50,80)
+
+age.upper <- c(5,15,20,50,80,110)
+
+freq <- c(200,450,300,1500,700,44)
+
+N <- sum(freq)
+
+cumfreq <- cumsum(freq)
+
+median.class <- which(cumfreq >= N/2)[1]
+
+L <- age.lower[median.class]
+
+F <- ifelse(median.class==1,0,cumfreq[median.class-1])
+
+f <- freq[median.class]
+
+h <- age.upper[median.class]-age.lower[median.class]
+
+median.value <- L + ((N/2-F)/f)*h
+
+cat("Total frequency =",N,"\n")
+
+cat("Median class =",median.class,"\n")
+
+cat("Approximate Median =",median.value,"\n")
