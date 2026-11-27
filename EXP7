@@ -1,0 +1,31 @@
+# If the package containing the water dataset is available:
+
+# install.packages("HSAUR3")
+
+library(HSAUR3)
+
+data(water)
+
+plot(water$hardness, water$mortality,
+
+     main="Mortality vs Hardness",
+
+     xlab="Hardness", ylab="Mortality",
+
+     pch=19)
+
+model <- lm(mortality ~ hardness, data=water)
+
+abline(model)
+
+cat("Regression model:\n")
+
+print(model)
+
+prediction <- predict(model,
+
+                      newdata=data.frame(hardness=88))
+
+cat("\nPredicted mortality for hardness 88:\n")
+
+print(prediction)
