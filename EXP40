@@ -1,0 +1,63 @@
+library(rpart)
+
+library(e1071)
+
+d <- read.csv("diabetes.csv")
+
+d$Outcome <- factor(d$Outcome)
+
+set.seed(5)
+
+id <- sample(nrow(d), 0.7*nrow(d))
+
+train <- d[id,]
+
+test <- d[-id,]
+
+dt <- rpart(Outcome~.,train,method="class")
+
+sv <- svm(Outcome~.,train,kernel="linear")
+
+pdt <- predict(dt,test,type="class")
+
+psv <- predict(sv,test)
+
+cm <- function(a,p) table(Actual=a,Predicted=p)
+
+accuracy <- function(a,p) mean(a==p)
+
+f1score <- function(a,p) {
+
+  z <- table(a,p)
+
+  precision <- z[2,2]/sum(z[,2])
+
+  recall <- z[2,2]/sum(z[2,])
+
+  2*precision*recall/(precision+recall)
+
+}
+
+result <- data.frame(
+
+ Model=c("Decision Tree","SVM"),
+
+ Accuracy=c(accuracy(test$Outcome,pdt),
+
+            accuracy(test$Outcome,psv)),
+
+ F1=c(f1score(test$Outcome,pdt),
+
+      f1score(test$Outcome,psv))
+
+)
+
+print(result)
+
+barplot(t(as.matrix(result[,2:3])),
+
+        beside=TRUE, ylim=c(0,1),
+
+        names.arg=result$Model,
+
+        main="Accuracy and F1 Comparison")
