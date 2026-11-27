@@ -1,0 +1,17 @@
+data("AirPassengers")
+
+passengers <- as.numeric(AirPassengers)
+
+hist(passengers,
+
+     breaks=seq(100,800,by=150),
+
+     xlim=c(100,800),
+
+     main="Histogram of AirPassengers",
+
+     xlab="Number of Passengers",
+
+     ylab="Frequency",
+
+     col="lightblue")
