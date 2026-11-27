@@ -1,0 +1,17 @@
+score <- c(100,70,60,90,90)
+
+minmax <- (score-min(score))/(max(score)-min(score))
+
+zscore <- (score-mean(score))/sd(score)
+
+mad_value <- mean(abs(score-mean(score)))
+
+z_mad <- (score-mean(score))/mad_value
+
+j <- ceiling(log10(max(abs(score))+1))
+
+decimal <- score/(10^j)
+
+result <- data.frame(score,minmax,zscore,z_mad,decimal)
+
+print(result)
