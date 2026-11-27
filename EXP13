@@ -1,0 +1,27 @@
+diabetes <- read.csv("diabetes.csv")
+
+model1 <- lm(Outcome ~ Age, data=diabetes)
+
+model2 <- lm(Outcome ~ Age + Glucose + BMI +
+
+               BloodPressure + Insulin,
+
+             data=diabetes)
+
+cat("Simple Linear Regression:\n")
+
+print(summary(model1))
+
+cat("\nMultiple Regression:\n")
+
+print(summary(model2))
+
+plot(diabetes$Age, diabetes$Outcome,
+
+     main="Diabetes Trend with Age",
+
+     xlab="Age", ylab="Diabetes Outcome",
+
+     pch=19)
+
+abline(model1, lwd=2)
