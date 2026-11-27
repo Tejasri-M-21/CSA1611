@@ -1,0 +1,29 @@
+person <- c("Gopu","Babu","Baby","Gopal","Krishna",
+
+             "Jai","Dev","Malini","Hema","Anu")
+
+vegetarian <- c("yes","yes","yes","no","yes",
+
+                "no","no","yes","yes","yes")
+
+data <- data.frame(person, vegetarian)
+
+count <- table(data$vegetarian)
+
+cat("Vegetarian:", count["yes"], "\n")
+
+cat("Non-Vegetarian:", count["no"], "\n")
+
+if(count["yes"] > count["no"]) {
+
+  cat("Vegetarian count is greater.\n")
+
+} else {
+
+  cat("Non-Vegetarian count is greater.\n")
+
+}
+
+barplot(count, main="Vegetarian Status",
+
+        ylab="Number of Persons")
