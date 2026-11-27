@@ -1,0 +1,23 @@
+library(arules)
+
+library(arulesViz)
+
+transactions <- read.transactions("market.csv",
+
+                                   format="basket",
+
+                                   sep=",")
+
+rules <- apriori(transactions,
+
+                 parameter=list(supp=0.50,
+
+                                conf=0.75,
+
+                                minlen=2))
+
+cat("Rules satisfying support 50% and confidence 75%:\n")
+
+inspect(rules)
+
+plot(rules, method="grouped")
