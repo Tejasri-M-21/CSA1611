@@ -1,0 +1,47 @@
+library(arules)
+
+transactions <- list(
+
+ c("Bread","Peanuts","Milk","Fruit","Jam"),
+
+ c("Bread","Jam","Soda","Chips","Milk","Fruit"),
+
+ c("Steak","Jam","Soda","Chips","Bread"),
+
+ c("Jam","Soda","Peanuts","Milk","Fruit"),
+
+ c("Jam","Soda","Chips","Milk","Bread"),
+
+ c("Fruit","Soda","Chips","Milk"),
+
+ c("Fruit","Soda","Peanuts","Milk"),
+
+ c("Fruit","Peanuts","Cheese","Yogurt")
+
+)
+
+tr <- as(transactions,"transactions")
+
+freq <- apriori(tr,
+
+                parameter=list(target="frequent itemsets",
+
+                               supp=2/8))
+
+rules <- apriori(tr,
+
+                 parameter=list(supp=2/8,
+
+                                conf=0.50,
+
+                                minlen=2))
+
+cat("Frequent itemsets:\n")
+
+inspect(freq)
+
+cat("\nAssociation rules:\n")
+
+inspect(rules)
+
+cat("\nFP-Growth uses the same transaction object with the same support.\n")
