@@ -1,0 +1,23 @@
+AvgSpeed <- c(78,81,82,74,83,82,77,80,70)
+
+TotalTime <- c(39,37,36,42,35,36,40,38,46)
+
+cat("AvgSpeed\n")
+
+cat("Mean =",mean(AvgSpeed),"\n")
+
+cat("Standard Deviation =",sd(AvgSpeed),"\n")
+
+cat("Variance =",var(AvgSpeed),"\n")
+
+cat("\nTotalTime\n")
+
+cat("Mean =",mean(TotalTime),"\n")
+
+cat("Standard Deviation =",sd(TotalTime),"\n")
+
+cat("Variance =",var(TotalTime),"\n")
+
+result <- data.frame(AvgSpeed,TotalTime)
+
+print(result)
