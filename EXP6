@@ -1,0 +1,22 @@
+data(mtcars)
+
+x <- 1:nrow(mtcars)
+
+mpg <- mtcars$mpg
+
+qsec <- mtcars$qsec
+
+plot(x, mpg, type="o", pch=16,
+
+     xlab="Car Index", ylab="Value",
+
+     main="MPG and QSEC")
+
+lines(x, qsec, type="o", pch=17)
+
+legend("topright",
+
+       legend=c("MPG","QSEC"),
+
+       pch=c(16,17), lty=1)
+
