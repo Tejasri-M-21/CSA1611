@@ -1,0 +1,39 @@
+library(arules)
+
+txt <- c(
+
+"SONY,BPL,LG",
+
+"BPL,SAMSUNG",
+
+"BPL,ONIDA",
+
+"SONY,BPL,SAMSUNG",
+
+"SONY,ONIDA",
+
+"BPL,ONIDA",
+
+"SONY,ONIDA",
+
+"SONY,BPL,ONIDA,LG",
+
+"SONY,BPL,ONIDA"
+
+)
+
+writeLines(txt,"sony_bpl.csv")
+
+tr <- read.transactions("sony_bpl.csv",
+
+                        format="basket",sep=",")
+
+freq <- apriori(tr,
+
+                parameter=list(target="frequent itemsets",
+
+                               supp=3/9))
+
+inspect(freq)
+
+cat("\nThe transaction data above is the input for an FP-Growth tree.\n")
