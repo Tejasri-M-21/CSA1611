@@ -1,0 +1,13 @@
+Items <- c("A","B","C","D")
+
+n <- length(items)
+
+# Number of non-empty proper antecedent/consequent splits
+
+rules <- 3^n - 2^(n+1) + 1
+
+cat("Number of items:", n, "\n")
+
+cat("Maximum association rules:", rules, "\n")
+
+cat("Maximum frequent itemset size:", n, "\n")
