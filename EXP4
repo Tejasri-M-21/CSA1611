@@ -1,0 +1,21 @@
+x <- c(200,300,400,600,1000)
+
+min_value <- min(x)
+
+max_value <- max(x)
+
+mean_value <- mean(x)
+
+sd_value <- sd(x)
+
+minmax <- (x-min_value)/(max_value-min_value)
+
+zscore <- (x-mean_value)/sd_value
+
+result <- data.frame(Value=x,
+
+                     Min_Max=minmax,
+
+                     Z_Score=zscore)
+
+print(result)
