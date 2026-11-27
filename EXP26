@@ -1,0 +1,45 @@
+library(rpart)
+
+data <- data.frame(
+
+ Outlook=c("Sunny","Sunny","Overcast","Rain","Rain","Rain",
+
+          "Overcast","Sunny","Sunny","Rain"),
+
+ Temperature=c("Hot","Hot","Hot","Mild","Cool","Cool",
+
+               "Cool","Mild","Cool","Mild"),
+
+ Play=c("No","No","Yes","Yes","Yes","No","Yes","No","Yes","Yes")
+
+)
+
+data$Play <- as.factor(data$Play)
+
+set.seed(2)
+
+id <- sample(1:nrow(data), 0.7*nrow(data))
+
+train <- data[id,]
+
+test <- data[-id,]
+
+tree <- rpart(Play ~ ., data=train, method="class")
+
+pred <- predict(tree,test,type="class")
+
+cm <- table(Actual=test$Play, Predicted=pred)
+
+accuracy <- sum(diag(cm))/sum(cm)
+
+print(tree)
+
+cat("\nAccuracy:",accuracy,"\n")
+
+cat("\nConfusion Matrix:\n")
+
+print(cm)
+
+plot(tree)
+
+text(tree,use.n=TRUE)
