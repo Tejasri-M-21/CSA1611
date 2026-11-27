@@ -1,0 +1,43 @@
+library(arules)
+
+txt <- c(
+
+"SONY,BPL,LG",
+
+"BPL,SAMSUNG",
+
+"BPL,ONIDA",
+
+"SONY,BPL,SAMSUNG",
+
+"SONY,ONIDA"
+
+)
+
+writeLines(txt,"electronics.csv")
+
+tr <- read.transactions("electronics.csv",
+
+                        format="basket",sep=",")
+
+rules <- apriori(tr,
+
+                 parameter=list(supp=2/5,
+
+                                conf=0.50,
+
+                                minlen=2))
+
+cat("Apriori rules:\n")
+
+inspect(rules)
+
+cat("\nFrequent itemsets:\n")
+
+freq <- apriori(tr,
+
+                parameter=list(target="frequent itemsets",
+
+                               supp=2/5))
+
+inspect(freq)
