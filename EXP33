@@ -1,0 +1,29 @@
+preference <- data.frame(
+
+ A=c(18,2,20),
+
+ B=c(22,28,10),
+
+ C=c(20,40,40)
+
+)
+
+age.mid <- c(5.5,7.5,9.5)
+
+cat("Covariance of preferences:\n")
+
+print(cov(preference))
+
+cat("\nCorrelation of preferences:\n")
+
+print(cor(preference))
+
+cat("\nCorrelation between age midpoint and preferences:\n")
+
+age.cor <- cor(cbind(age.mid,preference))
+
+print(age.cor)
+
+cat("\nB and C covariance:",cov(preference$B,preference$C),"\n")
+
+cat("B and C correlation:",cor(preference$B,preference$C),"\n")
