@@ -1,0 +1,37 @@
+Code
+
+diabetes <- read.csv("diabetes.csv")
+
+model <- lm(Outcome ~ Age + Glucose + BloodPressure +
+
+              BMI + Insulin + DiabetesPedigreeFunction,
+
+            data=diabetes)
+
+cat("Multiple Regression Model:\n")
+
+print(model)
+
+cat("\nModel Summary:\n")
+
+print(summary(model))
+
+new.person <- data.frame(
+
+ Age=45,
+
+ Glucose=130,
+
+ BloodPressure=80,
+
+ BMI=30,
+
+ Insulin=100,
+
+ DiabetesPedigreeFunction=0.5
+
+)
+
+cat("\nPredicted outcome:\n")
+
+print(predict(model,newdata=new.person))
