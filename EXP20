@@ -1,0 +1,41 @@
+library(e1071)
+
+data(iris)
+
+set.seed(123)
+
+id <- sample(1:nrow(iris), 0.7*nrow(iris))
+
+train <- iris[id,]
+
+test <- iris[-id,]
+
+nb <- naiveBayes(Species ~ ., data=train)
+
+pred.nb <- predict(nb, test)
+
+svm.model <- svm(Species ~ ., data=train, kernel="linear")
+
+pred.svm <- predict(svm.model, test)
+
+cm.nb <- table(test$Species, pred.nb)
+
+cm.svm <- table(test$Species, pred.svm)
+
+acc.nb <- sum(diag(cm.nb))/sum(cm.nb)
+
+acc.svm <- sum(diag(cm.svm))/sum(cm.svm)
+
+cat("Naive Bayes Accuracy:", acc.nb, "\n")
+
+cat("SVM Accuracy:", acc.svm, "\n")
+
+barplot(c(acc.nb,acc.svm),
+
+        names.arg=c("Naive Bayes","SVM"),
+
+        main="Classifier Accuracy",
+
+        ylab="Accuracy",
+
+        ylim=c(0,1))
