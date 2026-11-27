@@ -1,0 +1,33 @@
+diabetes <- read.csv("diabetes.csv")
+
+cat("First few records:\n")
+
+print(head(diabetes))
+
+plot(diabetes$Age, diabetes$BloodPressure,
+
+     main="Blood Pressure vs Age",
+
+     xlab="Age", ylab="Blood Pressure",
+
+     pch=19, col="blue")
+
+age_group <- cut(diabetes$Age,
+
+                 breaks=c(0,20,30,40,50,60,100),
+
+                 labels=c("0-20","21-30","31-40",
+
+                          "41-50","51-60","61+"))
+
+avg_bp <- tapply(diabetes$BloodPressure,
+
+                 age_group, mean, na.rm=TRUE)
+
+barplot(avg_bp,
+
+        main="Average Blood Pressure by Age Group",
+
+        xlab="Age Group", ylab="Average Blood Pressure",
+
+        col="lightblue")
