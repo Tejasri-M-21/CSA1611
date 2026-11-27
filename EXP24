@@ -1,0 +1,57 @@
+library(rpart)
+
+library(e1071)
+
+diabetes <- read.csv("diabetes.csv")
+
+diabetes$Outcome <- as.factor(diabetes$Outcome)
+
+set.seed(123)
+
+id <- sample(1:nrow(diabetes), 0.7*nrow(diabetes))
+
+train <- diabetes[id,]
+
+test <- diabetes[-id,]
+
+tree <- rpart(Outcome ~ ., data=train, method="class")
+
+pred.tree <- predict(tree,test,type="class")
+
+svm.model <- svm(Outcome ~ ., data=train, kernel="linear")
+
+pred.svm <- predict(svm.model,test)
+
+accuracy <- function(actual,pred)
+
+  sum(actual==pred)/length(actual)
+
+f1 <- function(actual,pred) {
+
+  cm <- table(actual,pred)
+
+  precision <- cm[2,2]/sum(cm[,2])
+
+  recall <- cm[2,2]/sum(cm[2,])
+
+  2*precision*recall/(precision+recall)
+
+}
+
+acc <- c(DecisionTree=accuracy(test$Outcome,pred.tree),
+
+         SVM=accuracy(test$Outcome,pred.svm))
+
+f1score <- c(DecisionTree=f1(test$Outcome,pred.tree),
+
+             SVM=f1(test$Outcome,pred.svm))
+
+print(acc)
+
+print(f1score)
+
+barplot(rbind(acc,f1score), beside=TRUE,
+
+        main="Decision Tree vs SVM",
+
+        ylim=c(0,1))
