@@ -1,0 +1,41 @@
+library(arules)
+
+txt <- c(
+
+"M,O,N,K,E,Y",
+
+"D,O,N,K,E,Y",
+
+"M,A,K,E",
+
+"M,U,C,K,Y",
+
+"C,O,K,I,E"
+
+)
+
+writeLines(txt, "five_transactions.csv")
+
+tr <- read.transactions("five_transactions.csv",
+
+                        format="basket", sep=",")
+
+rules <- apriori(tr,
+
+                 parameter=list(supp=0.40,
+
+                                conf=0.80,
+
+                                minlen=2))
+
+inspect(rules)
+
+itemsets <- apriori(tr,
+
+                     parameter=list(target="frequent itemsets",
+
+                                    supp=0.40,
+
+                                    minlen=2))
+
+inspect(itemsets)
