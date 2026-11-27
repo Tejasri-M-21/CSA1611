@@ -1,0 +1,31 @@
+speed <- c(78,81,82,74,83,82,77,80,70)
+
+time <- c(39,37,36,42,35,36,40,38,46)
+
+car <- data.frame(speed,time)
+
+model <- lm(time ~ speed,data=car)
+
+cat("Correlation:\n")
+
+print(cor(car$speed,car$time))
+
+cat("\nRegression model:\n")
+
+print(model)
+
+plot(speed,time,pch=19,
+
+     main="Speed vs Total Time",
+
+     xlab="Average Speed",
+
+     ylab="Total Time")
+
+abline(model,lwd=2)
+
+cat("\nPredicted time at speed 85:\n")
+
+print(predict(model,
+
+              newdata=data.frame(speed=85)))
