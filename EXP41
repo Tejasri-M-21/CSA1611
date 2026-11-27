@@ -1,0 +1,48 @@
+library(arules)
+
+items <- list(
+
+ c("A","B","C"),
+
+ c("A","B"),
+
+ c("A","C"),
+
+ c("B","C"),
+
+ c("A","B","C"),
+
+ c("A","B")
+
+)
+
+tr <- as(items,"transactions")
+
+all.rules <- apriori(tr,
+
+                     parameter=list(supp=1/6,
+
+                                    conf=0.01,
+
+                                    minlen=2))
+
+quality <- quality(all.rules)
+
+accepted <- all.rules[
+
+  quality$support >= 0.3333 &
+
+  quality$confidence >= 0.60
+
+]
+
+cat("All generated rules:\n")
+
+inspect(all.rules)
+
+cat("\nAccepted rules:\n")
+
+inspect(accepted)
+
+cat("\nAccepted rule count:",length(accepted),"\n")
+
