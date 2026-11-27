@@ -1,0 +1,37 @@
+customer <- data.frame(
+
+ ID=1:10,
+
+ Age=c(19,21,20,23,31,35,40,48,55,60),
+
+ Income=c(15,16,17,18,30,35,45,60,70,75),
+
+ Spending=c(39,81,6,77,40,60,55,50,25,20)
+
+)
+
+set.seed(123)
+
+km <- kmeans(customer[,c("Income","Spending")],
+
+             centers=5, nstart=25)
+
+customer$Cluster <- km$cluster
+
+print(customer)
+
+cat("\nCluster centers:\n")
+
+print(km$centers)
+
+plot(customer$Income, customer$Spending,
+
+     col=customer$Cluster, pch=19,
+
+     main="Mall Customer Segments",
+
+     xlab="Annual Income", ylab="Spending Score")
+
+points(km$centers[,1], km$centers[,2],
+
+       pch=8, cex=2)
