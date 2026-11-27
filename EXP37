@@ -1,0 +1,25 @@
+age <- 35
+
+min.age <- 23
+
+max.age <- 65
+
+mean.age <- 47.28
+
+sd.age <- 12.94
+
+minmax <- (age-min.age)/(max.age-min.age)
+
+zscore <- (age-mean.age)/sd.age
+
+j <- ceiling(log10(max(age)+1))
+
+decimal <- age/(10^j)
+
+cat("Age =",age,"\n")
+
+cat("Min-Max =",minmax,"\n")
+
+cat("Z-Score =",zscore,"\n")
+
+cat("Decimal Scaling =",decimal,"\n")
